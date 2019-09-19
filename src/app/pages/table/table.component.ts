@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../../api.service';
 
 declare interface TableData {
     headerRow: string[];
@@ -12,9 +13,20 @@ declare interface TableData {
 })
 
 export class TableComponent implements OnInit{
-    public tableData1: TableData;
+    public tableData1: any;
     public tableData2: TableData;
+    public TestData: any;
+    constructor(private apiService: ApiService) { }
+    
+
     ngOnInit(){
+
+      this.TestData=  this.apiService.getEmployees();
+     
+      this.apiService.getEmployees().subscribe((data)=>{
+        console.log(data);
+      });
+
         this.tableData1 = {
             headerRow: [ 'ID', 'Name', 'Country', 'City', 'Salary'],
             dataRows: [
